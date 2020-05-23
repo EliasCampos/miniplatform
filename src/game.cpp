@@ -19,7 +19,7 @@ Game::Game()
         std::string error = "Can't initialize game: Failed to load font";
         throw GameInitializationException(error);
     }
-    if (!music.openFromFile("music/soundtrack2.ogg"))
+    if (!music.openFromFile("music/soundtrack.ogg"))
     {
         std::string error = "Can't initialize game: Failed to play music";
         throw GameInitializationException(error);
