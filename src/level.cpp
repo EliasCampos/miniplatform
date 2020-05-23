@@ -2,11 +2,11 @@
 // Created by elias on 22.02.2020.
 //
 #include <vector>
+
 #include <SFML/System.hpp>
 
 #include "../includes/miniplatform/entities.h"
 #include "../includes/miniplatform/settings.h"
-
 #include "../includes/miniplatform/level.h"
 
 

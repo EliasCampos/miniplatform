@@ -1,6 +1,6 @@
 # Miniplatform
 
-A very simple arcade game.
+A very simple platform game.
 
 ## How to build the game (for Ubuntu)
 

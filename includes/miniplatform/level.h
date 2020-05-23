@@ -56,4 +56,4 @@ private:
     }
 };
 
-#endif //miniplatform_LEVEL_H
+#endif //MINIPLATFORM_LEVEL_H

@@ -227,4 +227,4 @@ private:
 
 };
 
-#endif //miniplatform_ENTITIES_H
+#endif //MINIPLATFORM_ENTITIES_H

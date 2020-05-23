@@ -3,6 +3,7 @@
 //
 
 #include <string>
+
 #include <SFML/Graphics.hpp>
 
 #include "../includes/miniplatform/game.h"

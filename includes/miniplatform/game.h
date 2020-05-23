@@ -52,4 +52,4 @@ public:
 };
 
 
-#endif //miniplatform_GAME_H
+#endif //MINIPLATFORM_GAME_H

@@ -2,6 +2,7 @@
 // Created by elias on 22.02.2020.
 //
 #include <cmath>
+
 #include <SFML/Graphics.hpp>
 
 #include "../includes/miniplatform/settings.h"

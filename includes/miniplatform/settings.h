@@ -9,4 +9,4 @@ const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 const unsigned int BLOCK_SIZE = 20;
 
-#endif //miniplatform_SETTINGS_H
+#endif //MINIPLATFORM_SETTINGS_H

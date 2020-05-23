@@ -72,4 +72,4 @@ private:
     }
 };
 
-#endif //miniplatform_EFFECT_H
+#endif //MINIPLATFORM_EFFECT_H
