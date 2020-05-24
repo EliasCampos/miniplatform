@@ -48,7 +48,6 @@ private:
 
     sf::SoundBuffer& get_sound_buffer(EffectType effect_type)
     {
-        sf::SoundBuffer *buff;
         switch(effect_type)
         {
             case EffectType::JUMP: return JUMP;

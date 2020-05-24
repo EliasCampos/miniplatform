@@ -10,11 +10,11 @@ int main()
     // create the window
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Simple Platformer");
 
-    Game game;
-
     // regulate the speed of the game via frame frames:
     sf::Clock clock;
     float frame;
+
+    Game game;
 
     // run the program as long as the window is open
     while (window.isOpen())
