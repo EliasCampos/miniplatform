@@ -27,7 +27,7 @@ Effect::Effect()
     for (EffectType effect_type: effect_type_list)
     {
         sf::SoundBuffer& buff = get_sound_buffer(effect_type);
-        sf::String sound_file = get_default_sound_file(effect_type);
+        std::string sound_file = get_default_sound_file(effect_type);
         if (!buff.loadFromFile(sound_file))
         {
             std::string error = "Can't load sound effect file " + sound_file;

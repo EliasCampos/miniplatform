@@ -2,7 +2,7 @@
 
 A very simple platform game.
 
-## How to build the game (for Ubuntu)
+## How to build the game (for Debian-based distributions)
 
 First, install SFML library:
 ```shell script

@@ -59,7 +59,7 @@ private:
         }
     }
 
-    static sf::String get_default_sound_file(EffectType effect_type)
+    static std::string get_default_sound_file(EffectType effect_type)
     {
         switch(effect_type)
         {
