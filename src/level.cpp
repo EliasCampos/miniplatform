@@ -6,8 +6,6 @@
 #include <SFML/System.hpp>
 
 #include "../includes/miniplatform/entities.h"
-#include "../includes/miniplatform/settings.h"
-#include "../includes/miniplatform/level_map.h"
 #include "../includes/miniplatform/level.h"
 
 
@@ -19,12 +17,12 @@ void Level::reset(std::vector<sf::String> &current_level_map)
     coins.clear();
     player = Player(sf::Vector2f(100, 100));
     level_map = LevelMap(current_level_map);
-    for (int i = 0; i < level_map.size(); i++)
+    for (int i = 0; i < level_map.getHeight(); i++)
     {
-        sf::String line = level_map[i];
+        sf::String line = level_map.getLine(i);
         for (int j = 0; j < line.getSize(); j++)
         {
-            char el = line[j];
+            char el = (char)line[j];
             float curr_x = (float)j*BLOCK_SIZE, curr_y = (float)i*BLOCK_SIZE;
             if (el == 'v' || el == '|' || el == '=')
             {
@@ -72,26 +70,29 @@ void Level::update(float frame)
             player.set_dead();
         }
     }
+    level_map.update(frame);
 }
 void Level::redraw(sf::RenderWindow &window)
 {
+    sf::Color wall_color = sf::Color(60, 60, 60);
+    sf::Color lava_color = sf::Color(255, 100, 100);
     sf::Vector2f player_offset = player.get_offset();
     float pos_x, pos_y;
-    for (int i = 0; i < level_map.size(); i++)
+    for (int i = 0; i < level_map.getHeight(); i++)
     {
-        sf::String line = level_map[i];
+        sf::String line = level_map.getLine(i);
         pos_y = (float)i * BLOCK_SIZE;
         for (int j = 0; j < line.getSize(); j++)
         {
             pos_x = (float)j * BLOCK_SIZE;
-            char el = line[j];
+            char el = (char)line[j];
             if (el == '#')
             {
-                tile_rect.setFillColor(sf::Color(60, 60, 60));
+                tile_rect.setFillColor(level_map.create_time_stop_color(wall_color));
             }
             else if (el == '+')
             {
-                tile_rect.setFillColor(sf::Color(255, 100, 100));
+                tile_rect.setFillColor(level_map.create_time_stop_color(lava_color));
             }
             else
             {
@@ -101,13 +102,16 @@ void Level::redraw(sf::RenderWindow &window)
             window.draw(tile_rect);
         }
     }
+    player.update_display(level_map);
     player.render(window);
     for (auto &lava: lavas)
     {
+        lava.update_display(level_map);
         lava.render(window);
     }
     for (auto &coin: coins)
     {
+        coin.update_display(level_map);
         coin.render(window);
     }
 }

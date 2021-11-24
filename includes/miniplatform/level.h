@@ -54,7 +54,12 @@ private:
         {
             player.jump();
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        {
+            level_map.set_time_stop();
+        }
     }
+
 };
 
 #endif //MINIPLATFORM_LEVEL_H

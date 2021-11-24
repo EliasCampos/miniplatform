@@ -24,16 +24,19 @@ public:
 
     sf::FloatRect get_rect();
 
+    virtual void update_display(LevelMap &level_map);
+
 protected:
     sf::FloatRect rect;
     sf::RectangleShape sprite;
+    sf::Color base_color;
 
 };
 
 class Player: public Entity
 {
 public:
-    Player(sf::Vector2f init_pos);
+    explicit Player(sf::Vector2f init_pos);
 
     void update(float time, LevelMap &level) override;
 
@@ -64,6 +67,9 @@ public:
 
     bool is_winner();
 
+    // Display control
+    void update_display(LevelMap &level_map) override;
+
 private:
     static const unsigned int WIDTH = 16;
     static const unsigned int HEIGHT = 30;
@@ -79,14 +85,14 @@ private:
     bool is_won = false;
     float finalization_time = 3000;  // in microseconds
 
-    void check_block_collision(LevelMap &level, unsigned int direction)
+    void check_block_collision(LevelMap &level_map, unsigned int direction)
     {
         for (int i = ((int)rect.top / (int)BLOCK_SIZE); i <= ((int)(rect.top + HEIGHT) / (int)BLOCK_SIZE); i++)
         {
-            sf::String line = level[i];
+            sf::String line = level_map.getLine(i);
             for (int j = ((int)rect.left / (int)BLOCK_SIZE); j <= ((int)(rect.left + WIDTH) / (int)BLOCK_SIZE); j++)
             {
-                char el = line[j];
+                char el = (char)line[j];
                 if (el == '#')
                 {
                     handle_wall_collision(direction, j, i);
@@ -144,14 +150,14 @@ private:
     bool is_reflected = false;
     sf::Vector2f offset;
 
-    void check_block_collision(LevelMap &level)
+    void check_block_collision(LevelMap &level_map)
     {
         for (int i = ((int)rect.top / (int)BLOCK_SIZE); i <= ((int)(rect.top + HEIGHT) / (int)BLOCK_SIZE); i++)
         {
-            sf::String line = level[i];
+            sf::String line = level_map.getLine(i);
             for (int j = ((int)rect.left / (int)BLOCK_SIZE); j <= ((int)(rect.left + WIDTH) / (int)BLOCK_SIZE); j++)
             {
-                char el = line[j];
+                char el = (char)line[j];
                 if (el == '#' || el == '+')
                 {
                     if (is_reflected)
@@ -195,15 +201,15 @@ private:
 
     bool is_hits_wall = false;
 
-    void check_block_collision(LevelMap &level)
+    void check_block_collision(LevelMap &level_map)
     {
         float vert_pos = start_y + wobble_pos;
         for (int i = ((int)vert_pos / (int)BLOCK_SIZE); i <= ((int)(vert_pos + HEIGHT) / (int)BLOCK_SIZE); i++)
         {
-            sf::String line = level[i];
+            sf::String line = level_map.getLine(i);
             for (int j = ((int)rect.left / (int)BLOCK_SIZE); j <= ((int)(rect.left + WIDTH) / (int)BLOCK_SIZE); j++)
             {
-                char el = line[j];
+                char el = (char)line[j];
                 if (el == '#' || el == '+')
                 {
                     is_hits_wall = true;
