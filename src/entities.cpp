@@ -109,11 +109,11 @@ void Player::touch_coin() {
     Effect::get_instance().perform(EffectType::COIN_TOUCH);
 }
 
-bool Player::is_died()
+bool Player::is_died() const
 {
     return !is_won && is_dead && finalization_time <= 0;
 }
-bool Player::is_winner()
+bool Player::is_winner() const
 {
     return !is_dead && is_won && finalization_time <= 0;
 }
@@ -143,7 +143,7 @@ void Lava::set_offset(sf::Vector2f player_offset)
 }
 void Lava::update(float time, LevelMap &level)
 {
-    float current_speed = speed * level.time_stop_factor();
+    float current_speed = speed * level.time_acceleration_factor() * level.time_stop_factor();
     if (is_vertical)
     {
         rect.top += current_speed;
@@ -175,7 +175,7 @@ Coin::Coin(float init_x, float init_y)
 }
 void Coin::update(float frame, LevelMap &level_map)
 {
-    float current_wobble_speed = wobble_speed * level_map.time_stop_factor();
+    float current_wobble_speed = wobble_speed * level_map.time_acceleration_factor() * level_map.time_stop_factor();
     wobble += current_wobble_speed * frame;
     wobble_pos = (float)sin((double)wobble) * wobble_dist;
     check_block_collision(level_map);
