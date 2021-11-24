@@ -28,3 +28,11 @@ Just run it:
 ```shell script
 ./build/miniplatform
 ```
+
+## Game features
+
+### A Time Stop
+
+Press "Z" to activate a time stop for 5 seconds.
+
+Be aware: After finishing the time stop, you should wait for a while to activate it again.

@@ -13,17 +13,20 @@ Effect& Effect::get_instance()
     return instance;
 }
 
-
-void Effect::perform(EffectType effect)
-{
-    sf::SoundBuffer& buff = get_sound_buffer(effect);
-    sound.setBuffer(buff);
-    sound.play();
-}
-
 Effect::Effect()
 {
-    EffectType effect_type_list[] = {EffectType::JUMP, EffectType::COIN_TOUCH, EffectType::LAVA_TOUCH, EffectType::LEVEL_END};
+    for (int i = 0; i < SOUNDS_NUMBER; i++)
+    {
+        sounds.emplace_back();
+    }
+
+    EffectType effect_type_list[] = {
+            EffectType::JUMP,
+            EffectType::COIN_TOUCH,
+            EffectType::LAVA_TOUCH,
+            EffectType::LEVEL_END,
+            EffectType::TIME_STOP,
+    };
     for (EffectType effect_type: effect_type_list)
     {
         sf::SoundBuffer& buff = get_sound_buffer(effect_type);
@@ -32,6 +35,20 @@ Effect::Effect()
         {
             std::string error = "Can't load sound effect file " + sound_file;
             throw EffectInitializationException(error);
+        }
+    }
+}
+void Effect::perform(EffectType effect)
+{
+    sf::SoundBuffer& buff = get_sound_buffer(effect);
+
+    for (auto &sound: sounds)
+    {
+        if (sound.getStatus() != sf::Sound::Status::Playing)
+        {
+            sound.setBuffer(buff);
+            sound.play();
+            break;
         }
     }
 }

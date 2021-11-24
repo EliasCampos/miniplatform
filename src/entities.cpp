@@ -19,6 +19,11 @@ sf::FloatRect Entity::get_rect()
     return rect_copy;
 }
 
+void Entity::update_display(LevelMap &level_map) {
+    sf::Color current_color = level_map.create_time_stop_color(base_color);
+    sprite.setFillColor(current_color);
+}
+
 
 Player::Player(sf::Vector2f init_pos)
 {
@@ -26,12 +31,13 @@ Player::Player(sf::Vector2f init_pos)
     rect.top = init_pos.y;
     rect.width = WIDTH;
     rect.height = HEIGHT;
+    base_color = sf::Color(50, 200, 100);
     sprite.setSize(sf::Vector2f(WIDTH, HEIGHT));
-    sprite.setFillColor(sf::Color(50, 200, 100));
+    sprite.setFillColor(base_color);
     dx = dy = 0;
     is_on_ground = false;
 }
-void Player::update(float time, std::vector<sf::String> &level)
+void Player::update(float time, LevelMap &level)
 {
     if (!is_on_ground)
     {
@@ -112,6 +118,9 @@ bool Player::is_winner()
     return !is_dead && is_won && finalization_time <= 0;
 }
 
+void Player::update_display(LevelMap &level_map)
+{}
+
 
 Lava::Lava(float init_x, float init_y, bool is_repeat, bool is_horizontal, int direction)
 {
@@ -123,23 +132,25 @@ Lava::Lava(float init_x, float init_y, bool is_repeat, bool is_horizontal, int d
     rect.top = start_y + lim * (float)direction;
     rect.width = WIDTH;
     rect.height = HEIGHT;
+    base_color = sf::Color(255, 100, 100);
     sprite.setSize(sf::Vector2f(WIDTH, HEIGHT));
-    sprite.setFillColor(sf::Color(255, 100, 100));
+    sprite.setFillColor(base_color);
 }
 void Lava::set_offset(sf::Vector2f player_offset)
 {
     offset.x = player_offset.x;
     offset.y = player_offset.y;
 }
-void Lava::update(float time, std::vector<sf::String> &level)
+void Lava::update(float time, LevelMap &level)
 {
+    float current_speed = speed * level.time_stop_factor();
     if (is_vertical)
     {
-        rect.top += speed;
+        rect.top += current_speed;
     }
     else
     {
-        rect.left += speed;
+        rect.left += current_speed;
     }
     check_block_collision(level);
     sprite.setPosition(rect.left - offset.x, rect.top - offset.y);
@@ -157,13 +168,15 @@ Coin::Coin(float init_x, float init_y)
     rect.top = start_y;
     rect.width = WIDTH;
     rect.height = HEIGHT;
+    base_color = sf::Color::Yellow;
 
     sprite.setSize(sf::Vector2f(WIDTH, HEIGHT));
-    sprite.setFillColor(sf::Color::Yellow);
+    sprite.setFillColor(base_color);
 }
-void Coin::update(float frame, std::vector<sf::String> &level_map)
+void Coin::update(float frame, LevelMap &level_map)
 {
-    wobble += wobble_speed * frame;
+    float current_wobble_speed = wobble_speed * level_map.time_stop_factor();
+    wobble += current_wobble_speed * frame;
     wobble_pos = (float)sin((double)wobble) * wobble_dist;
     check_block_collision(level_map);
     if (!is_hits_wall)
