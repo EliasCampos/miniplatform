@@ -8,6 +8,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#include "level_map.h"
 #include "entities.h"
 
 
@@ -32,7 +33,7 @@ public:
 private:
     sf::RectangleShape tile_rect = sf::RectangleShape((sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
 
-    std::vector<sf::String> level_map;
+    LevelMap level_map;
 
     Player player  = Player(sf::Vector2f(100, 200));
 

@@ -31,7 +31,7 @@ Player::Player(sf::Vector2f init_pos)
     dx = dy = 0;
     is_on_ground = false;
 }
-void Player::update(float time, std::vector<sf::String> &level)
+void Player::update(float time, LevelMap &level)
 {
     if (!is_on_ground)
     {
@@ -131,7 +131,7 @@ void Lava::set_offset(sf::Vector2f player_offset)
     offset.x = player_offset.x;
     offset.y = player_offset.y;
 }
-void Lava::update(float time, std::vector<sf::String> &level)
+void Lava::update(float time, LevelMap &level)
 {
     if (is_vertical)
     {
@@ -161,7 +161,7 @@ Coin::Coin(float init_x, float init_y)
     sprite.setSize(sf::Vector2f(WIDTH, HEIGHT));
     sprite.setFillColor(sf::Color::Yellow);
 }
-void Coin::update(float frame, std::vector<sf::String> &level_map)
+void Coin::update(float frame, LevelMap &level_map)
 {
     wobble += wobble_speed * frame;
     wobble_pos = (float)sin((double)wobble) * wobble_dist;

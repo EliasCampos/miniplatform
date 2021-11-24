@@ -11,13 +11,14 @@
 
 #include "effect.h"
 #include "settings.h"
+#include "level_map.h"
 
 
 class Entity
 {
 public:
 
-    virtual void update(float frame, std::vector<sf::String> &level_map) = 0;
+    virtual void update(float frame, LevelMap &level_map) = 0;
 
     void render(sf::RenderWindow &window);
 
@@ -34,7 +35,7 @@ class Player: public Entity
 public:
     Player(sf::Vector2f init_pos);
 
-    void update(float time, std::vector<sf::String> &level) override;
+    void update(float time, LevelMap &level) override;
 
     // Motion control:
 
@@ -78,7 +79,7 @@ private:
     bool is_won = false;
     float finalization_time = 3000;  // in microseconds
 
-    void check_block_collision(std::vector<sf::String> &level, unsigned int direction)
+    void check_block_collision(LevelMap &level, unsigned int direction)
     {
         for (int i = ((int)rect.top / (int)BLOCK_SIZE); i <= ((int)(rect.top + HEIGHT) / (int)BLOCK_SIZE); i++)
         {
@@ -129,7 +130,7 @@ public:
 
     void set_offset(sf::Vector2f player_offset);
 
-    void update(float time, std::vector<sf::String> &level) override;
+    void update(float time, LevelMap &level) override;
 
 private:
     float start_x, start_y;
@@ -143,7 +144,7 @@ private:
     bool is_reflected = false;
     sf::Vector2f offset;
 
-    void check_block_collision(std::vector<sf::String> &level)
+    void check_block_collision(LevelMap &level)
     {
         for (int i = ((int)rect.top / (int)BLOCK_SIZE); i <= ((int)(rect.top + HEIGHT) / (int)BLOCK_SIZE); i++)
         {
@@ -174,7 +175,7 @@ class Coin: public Entity
 public:
     Coin(float init_x, float init_y);
 
-    void update(float frame, std::vector<sf::String> &level_map) override;
+    void update(float frame, LevelMap &level_map) override;
 
     void set_offset(sf::Vector2f player_offset);
 
@@ -194,7 +195,7 @@ private:
 
     bool is_hits_wall = false;
 
-    void check_block_collision(std::vector<sf::String> &level)
+    void check_block_collision(LevelMap &level)
     {
         float vert_pos = start_y + wobble_pos;
         for (int i = ((int)vert_pos / (int)BLOCK_SIZE); i <= ((int)(vert_pos + HEIGHT) / (int)BLOCK_SIZE); i++)

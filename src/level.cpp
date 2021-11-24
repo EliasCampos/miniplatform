@@ -7,6 +7,7 @@
 
 #include "../includes/miniplatform/entities.h"
 #include "../includes/miniplatform/settings.h"
+#include "../includes/miniplatform/level_map.h"
 #include "../includes/miniplatform/level.h"
 
 
@@ -17,7 +18,7 @@ void Level::reset(std::vector<sf::String> &current_level_map)
     lavas.clear();
     coins.clear();
     player = Player(sf::Vector2f(100, 100));
-    level_map = current_level_map;
+    level_map = LevelMap(current_level_map);
     for (int i = 0; i < level_map.size(); i++)
     {
         sf::String line = level_map[i];
