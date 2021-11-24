@@ -48,7 +48,7 @@ public:
 
     void jump();
 
-    void touch_coin();
+    static void touch_coin();
 
     // State control:
 
@@ -63,9 +63,9 @@ public:
 
     bool is_touches(Entity &entity);
 
-    bool is_died();
+    bool is_died() const;
 
-    bool is_winner();
+    bool is_winner() const;
 
     // Display control
     void update_display(LevelMap &level_map) override;

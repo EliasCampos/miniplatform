@@ -40,6 +40,8 @@ void Level::reset(std::vector<sf::String> &current_level_map)
             }
         }
     }
+
+    time_acceleration_delta = 10 / (float)coins.size();
 }
 void Level::update(float frame)
 {
@@ -55,6 +57,7 @@ void Level::update(float frame)
         if (is_taken_coin)
         {
             player.touch_coin();
+            level_map.accelerate_time(time_acceleration_delta);
         }
     }
     if (coins.empty())

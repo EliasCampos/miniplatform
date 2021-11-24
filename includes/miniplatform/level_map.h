@@ -26,6 +26,10 @@ public:
 
     float time_stop_factor() const;  // in interval 1 to 0. 1 means no time stop, 0 means time stopped completely
 
+    void accelerate_time(float acceleration);
+
+    float time_acceleration_factor() const;
+
     sf::Color create_time_stop_color(sf::Color& color) const;
 
 private:
@@ -36,6 +40,8 @@ private:
     bool is_time_stopped = false;
     float time_stop_left = (float)DEFAULT_TIME_STOP_LEFT;
     float time_stop_idle = 0;
+
+    float time_acceleration = 1;
 };
 
 

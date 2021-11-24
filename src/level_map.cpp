@@ -71,3 +71,11 @@ sf::Color LevelMap::create_time_stop_color(sf::Color &color) const
     }
     return color;
 }
+
+void LevelMap::accelerate_time(float acceleration) {
+    time_acceleration += acceleration;
+}
+
+float LevelMap::time_acceleration_factor() const {
+    return time_acceleration;
+}

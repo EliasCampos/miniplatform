@@ -40,6 +40,8 @@ private:
     std::vector<Lava> lavas;
     std::vector<Coin> coins;
 
+    float time_acceleration_delta;
+
     void handle_keypress(float frame)
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
